@@ -1,0 +1,163 @@
+# TypeScript `unknown` vs `any`: Understanding the Key Differences
+
+In TypeScript, both `unknown` and `any` represent values whose types are not known at compile time. At first glance, they may look similar, but their behavior and impact on **type safety** are very different.
+
+Choosing the right one can make the difference between **safe, maintainable code** and a codebase full of **runtime surprises**.
+
+This blog breaks down the differences, with examples, best practices, and a summary table for quick reference.
+
+---
+
+## Key Differences Between `unknown` and `any`
+
+### 1. Type Safety
+
+* **`any`**: Completely disables type checking. You can perform any operation on it, even invalid ones, and the compiler won’t complain.
+* **`unknown`**: Type-safe alternative. You must **narrow** or **assert** the type before using it.
+
+```ts
+let valueAny: any;
+let valueUnknown: unknown;
+
+valueAny = "Hello";
+console.log(valueAny.toUpperCase()); // ✅ Compiles, may fail at runtime
+
+valueUnknown = "Hello";
+console.log(valueUnknown.toUpperCase()); // ❌ Error: must narrow first
+```
+
+---
+
+### 2. Usage Restrictions
+
+* **`any`**: Assignable to any type and allows any operation.
+* **`unknown`**: Requires explicit type checks or assertions.
+
+```ts
+let valueAny: any = "Hello";
+let str: string = valueAny; // ✅ Works, but unsafe
+valueAny.nonExistentMethod(); // ✅ Compiles, 💥 runtime error
+
+let valueUnknown: unknown = "Hello";
+// ❌ let str2: string = valueUnknown;
+if (typeof valueUnknown === "string") {
+  console.log(valueUnknown.toUpperCase()); // ✅ Safe
+}
+```
+
+---
+
+### 3. Assignment Rules
+
+* **`any`**: Two-way street—assignable to and from anything.
+* **`unknown`**: Anything can be assigned to `unknown`, but `unknown` itself can only be assigned to `any` or `unknown` (unless narrowed).
+
+```ts
+let valueAny: any;
+let valueUnknown: unknown;
+
+valueAny = 42;
+let num1: number = valueAny; // ✅ Works
+
+valueUnknown = 42;
+// ❌ let num2: number = valueUnknown;
+
+let anyVar: any = valueUnknown;   // ✅ Allowed
+let unknownVar: unknown = valueAny; // ✅ Allowed
+```
+
+---
+
+### 4. Use Case Philosophy
+
+* **`any`**:
+
+  * Bypasses type system
+  * Common in **JavaScript → TypeScript migrations**
+  * Useful for quick prototyping or working with libraries without type definitions
+
+* **`unknown`**:
+
+  * Forces explicit checks
+  * Ideal for handling **API responses, user input, or external data**
+  * Safer in modern TypeScript codebases
+
+```ts
+// API response - unsafe
+function fetchData(): any {
+  return { name: "Alice", age: 25 };
+}
+let dataAny = fetchData();
+console.log(dataAny.name.toUpperCase()); // ❌ Risky if 'name' isn't a string
+
+// API response - safe
+function fetchDataSafe(): unknown {
+  return { name: "Alice", age: 25 };
+}
+let dataUnknown = fetchDataSafe();
+if (typeof dataUnknown === "object" && dataUnknown !== null && "name" in dataUnknown) {
+  console.log((dataUnknown as { name: string }).name.toUpperCase()); // ✅ Safe
+}
+```
+
+---
+
+### 5. Error-Prone vs. Safe
+
+* **`any`**: Prone to runtime crashes.
+* **`unknown`**: Compiler enforces safety.
+
+```ts
+let valueAny: any = 42;
+valueAny.toUpperCase(); // ❌ Compiles, 💥 runtime error
+
+let valueUnknown: unknown = 42;
+// ❌ valueUnknown.toUpperCase(); (compile-time error, safe)
+```
+
+---
+
+## Best Practices
+
+* 🚫 **Avoid `any` whenever possible** – it weakens TypeScript’s core benefit.
+* ✅ **Use `unknown` for dynamic data** (APIs, JSON, user input).
+* 🔍 **Narrow `unknown` with type guards** before use.
+
+```ts
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+let input: unknown = "Hello";
+if (isString(input)) {
+  console.log(input.toUpperCase()); // ✅ Safe
+}
+```
+
+---
+
+## Summary Table
+
+| Feature                | `any`                               | `unknown`                          |
+| ---------------------- | ----------------------------------- | ---------------------------------- |
+| **Type Safety**        | ❌ None, disables type checking      | ✅ Enforces checks before use       |
+| **Operations Allowed** | Any operation                       | Only after narrowing               |
+| **Assignment**         | Assignable to/from anything         | Assignable to `any`/`unknown` only |
+| **Use Case**           | Legacy code, migration, quick hacks | Safe handling of external data     |
+| **Runtime Risk**       | High                                | Low (with checks)                  |
+
+---
+
+## Conclusion
+
+* **`any`**: A double-edged sword. Convenient, but dangerous if overused. Best kept for **legacy migration or quick fixes**.
+* **`unknown`**: The safer, modern alternative. It lets you handle dynamic values **without sacrificing type safety**.
+
+👉 **Rule of Thumb**:
+
+* Reach for **`unknown`** in modern TypeScript projects.
+* Use **`any`** only when you absolutely must bypass the type system.
+
+By preferring `unknown` over `any`, you’ll write **safer, more predictable, and maintainable TypeScript code**.
+
+---

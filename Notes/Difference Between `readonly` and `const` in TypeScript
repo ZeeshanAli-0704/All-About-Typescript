@@ -1,0 +1,213 @@
+# 🔒 Difference Between `readonly` and `const` in TypeScript
+
+When learning TypeScript, one common confusion is:
+
+👉 *“When should I use `const` and when should I use `readonly`?”*
+
+At first glance, both keywords seem to mean the same thing: *"cannot change"*.
+But in reality, they work in different contexts and serve different purposes.
+
+In this article, we’ll explore:
+
+* What `const` and `readonly` really mean
+* Key differences with examples
+* Use cases in variables, objects, arrays, and classes
+* A summary table for quick reference
+
+---
+
+## 1. `const` in TypeScript
+
+The **`const`** keyword is used to declare **variables** that cannot be **reassigned**.
+
+### Example:
+
+```ts
+const x = 10;
+// x = 20; ❌ Error: cannot reassign a const variable
+```
+
+🔑 **Important**: `const` prevents *reassignment of the binding*, but not mutation of the object it refers to.
+
+```ts
+const user = { name: "Alice" };
+user.name = "Bob"; // ✅ Allowed
+// user = { name: "Charlie" }; ❌ Not allowed
+```
+
+So if a `const` variable holds an object, you can still update its properties.
+
+---
+
+## 2. `readonly` in TypeScript
+
+The **`readonly`** keyword applies to **properties inside objects, classes, and arrays**.
+It prevents **modification of the property itself**, but not reassignment of the variable holding the object.
+
+### Example with Object:
+
+```ts
+type User = {
+  readonly name: string;
+  age: number;
+};
+
+let user: User = { name: "Alice", age: 25 };
+
+user.age = 26; // ✅ Allowed
+// user.name = "Bob"; ❌ Error: cannot assign to readonly property
+```
+
+### Example with Class:
+
+```ts
+class Person {
+  readonly id: number; // immutable property
+
+  constructor(id: number) {
+    this.id = id;
+  }
+}
+
+const p = new Person(101);
+// p.id = 202; ❌ Not allowed
+```
+
+Here, `id` is immutable after being assigned in the constructor.
+
+---
+
+## 3. `const` vs `readonly` with Arrays
+
+This is a common interview trick! Let’s compare.
+
+### `const` Array
+
+```ts
+const numbers = [1, 2, 3];
+
+numbers.push(4);   // ✅ Allowed
+// numbers = [5, 6]; ❌ Not allowed
+```
+
+* You can modify the **contents**.
+* You cannot reassign the variable itself.
+
+---
+
+### `readonly` Array
+
+```ts
+const readonlyNumbers: readonly number[] = [1, 2, 3];
+
+// readonlyNumbers.push(4); ❌ Not allowed
+// readonlyNumbers[0] = 100; ❌ Not allowed
+```
+
+* You **cannot modify** the array contents.
+* You **can still reassign** if it’s not declared with `const`:
+
+```ts
+let arr: readonly number[] = [1, 2, 3];
+arr = [4, 5, 6]; // ✅ Allowed
+```
+
+---
+
+## 4. Where They Apply
+
+* **`const`**: Top-level variables, inside functions, loops, or blocks.
+* **`readonly`**: Object properties, class members, and arrays (as types).
+
+```ts
+// const variable
+const pi = 3.14;
+
+// readonly property
+type Circle = {
+  readonly radius: number;
+};
+```
+
+---
+
+## 5. Compile-Time vs Runtime
+
+Another big difference is how they exist at runtime:
+
+* `const` → Exists in **JavaScript runtime**.
+* `readonly` → TypeScript-only, disappears at runtime.
+
+Example:
+
+```ts
+const x = 10; // in JS: const x = 10;
+
+type User = { readonly name: string };
+let u: User = { name: "Alice" };
+// at runtime → it's just a plain object
+```
+
+So `readonly` is a **compile-time guarantee only**.
+
+---
+
+## 6. Real-World Use Cases
+
+✅ **Use `const`** when declaring variables you don’t want to reassign:
+
+```ts
+const API_URL = "https://api.example.com";
+const MAX_RETRIES = 3;
+```
+
+✅ **Use `readonly`** when modeling data structures where properties should not change after initialization:
+
+```ts
+interface Config {
+  readonly apiKey: string;
+  readonly version: number;
+}
+
+const config: Config = {
+  apiKey: "abc123",
+  version: 1
+};
+
+// config.apiKey = "xyz789"; ❌ Not allowed
+```
+
+✅ **Combine them** for maximum safety:
+
+```ts
+const users: readonly string[] = ["Alice", "Bob", "Charlie"];
+// users.push("David"); ❌ Not allowed
+```
+
+---
+
+## 7. Key Differences: Summary Table
+
+| Feature             | `const`                             | `readonly`                              |
+| ------------------- | ----------------------------------- | --------------------------------------- |
+| **Applies to**      | Variables (bindings)                | Object properties, class fields, arrays |
+| **Prevents**        | Reassignment of variable            | Mutation of property/array element      |
+| **Scope**           | Functions, blocks, global variables | Object types, classes, arrays           |
+| **Runtime effect**  | Exists in JavaScript (ES6 `const`)  | TypeScript-only (compile-time only)     |
+| **Object mutation** | Allowed (properties can change)     | Prevents property mutation              |
+| **Array mutation**  | Allowed (`push`, `pop` etc.)        | Prevented (`readonly number[]`)         |
+
+---
+
+## 🔑 Final Thoughts
+
+* Use **`const`** when you want to **lock a variable binding**.
+* Use **`readonly`** when you want to **make object properties or arrays immutable**.
+* Combine both for robust, immutable patterns in TypeScript.
+
+👉 In short:
+
+* **`const` = variable-level immutability**
+* **`readonly` = property-level immutability**
+
+---
