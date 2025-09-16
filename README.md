@@ -44,7 +44,7 @@ Detailed write-ups and comparisons to clarify key TypeScript concepts:
    ```bash
    git clone https://github.com/your-username/ALL-ABOUT-TYPESCRIPT.git
    cd ALL-ABOUT-TYPESCRIPT
-````
+```
 
 2. Install dependencies (if any examples require them):
 
@@ -99,3 +99,4 @@ Various tutorials, blogs, and open educational resources.
 > **Disclaimer**: This repository is for learning and educational purposes only.  
 > Examples and explanations are based on official TypeScript documentation and other publicly available resources.  
 
+```
