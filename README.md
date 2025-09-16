@@ -1,3 +1,8 @@
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
 # 📘 ALL-ABOUT-TYPESCRIPT
 
 A comprehensive collection of **TypeScript demos, notes, and reference materials** to help you master TypeScript concepts step by step.  
@@ -84,10 +89,7 @@ Contributions are welcome! 🚀 Feel free to open a PR with additional demos, im
 - Various tutorials, blogs & open educational resources
 
 **Disclaimer:**  
-This repository is for learning and educational purposes only. Examples and explanations are based on official TypeScript documentation and other publicly available resources.
+This repository is for learning and educational purposes only. Examples and explanations are based on TypeScript documentation and other publicly available resources from across Learning platforms.
 
 ---
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
-![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
