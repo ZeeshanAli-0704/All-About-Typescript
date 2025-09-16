@@ -2,7 +2,6 @@
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 
@@ -87,3 +86,16 @@ This repo is intended as a **learning resource** for developers who want to stre
 Feel free to contribute more demos or notes by opening a PR.
 
 ---
+
+📚 Sources / References
+
+This repository is built for educational purposes.
+Some concepts and examples are adapted from the official TypeScript documentation and other public learning resources:
+TypeScript Official Docs
+MDN Web Docs - TypeScript & JavaScript
+Oreilly's Learning Course
+Various tutorials, blogs, and open educational resources.
+
+> **Disclaimer**: This repository is for learning and educational purposes only.  
+> Examples and explanations are based on official TypeScript documentation and other publicly available resources.  
+
