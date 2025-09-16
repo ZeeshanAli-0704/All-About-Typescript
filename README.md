@@ -1,7 +1,3 @@
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
-![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-
 # 📘 ALL-ABOUT-TYPESCRIPT
 
 A comprehensive collection of **TypeScript demos, notes, and reference materials** to help you master TypeScript concepts step by step.  
@@ -41,4 +37,57 @@ Detailed write-ups and comparisons to clarify key TypeScript concepts:
    git clone https://github.com/your-username/ALL-ABOUT-TYPESCRIPT.git
    cd ALL-ABOUT-TYPESCRIPT
    ```
-   
+
+2. Install dependencies (if required for certain demos):  
+   ```bash
+   npm install
+   ```
+
+3. Run the TypeScript compiler:  
+   ```bash
+   npx tsc
+   ```
+
+4. Explore demos and notes:  
+   ```bash
+   # Navigate into Demos folder
+   cd Demos/
+
+   # Navigate into Notes folder
+   cd Notes/
+   ```
+
+## 📖 Topics Covered
+
+- TypeScript Essentials
+- Functions & Classes
+- Interfaces & Inheritance
+- Advanced Techniques
+- Async Programming
+- Decorators
+- Fetch API Integration
+- Practical Notes & Comparisons
+
+## 🎯 Purpose
+
+This repository is intended as a learning resource for developers who want to strengthen their TypeScript knowledge with both hands-on code and in-depth notes.
+
+## 🤝 Contribution
+
+Contributions are welcome! 🚀 Feel free to open a PR with additional demos, improvements, or notes.
+
+## 📚 Sources / References
+
+- TypeScript Official Docs: https://www.typescriptlang.org/docs/
+- MDN Web Docs: https://developer.mozilla.org/
+- O’Reilly Learning Courses
+- Various tutorials, blogs & open educational resources
+
+**Disclaimer:**  
+This repository is for learning and educational purposes only. Examples and explanations are based on official TypeScript documentation and other publicly available resources.
+
+---
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
